@@ -1,6 +1,7 @@
 package com.example.composeticcalc
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -59,6 +60,40 @@ fun TopHeader(totalPerPerson: Double = 134.9339) {
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun BillForm(modifier: Modifier = Modifier,
+    onValChange: (String) -> Unit = {}) {
+    var totalBillState = remember {
+        mutableStateOf("")
+    }
+    val validState = remember(totalBillState.value) {
+        totalBillState.value.trim().isNotEmpty()
+    }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    Surface(modifier = Modifier
+        .padding(2.dp)
+        .fillMaxWidth(),
+        shape = RoundedCornerShape(corner = CornerSize(8.dp)),
+        border = BorderStroke(width = 1.dp, color = Color.LightGray)
+    ) {
+        Column() {
+            InputField(valueState = totalBillState,
+                labelId = "Enter Bill",
+                enabled = true,
+                isSingleLine = true,
+                onAction = KeyboardActions {
+                    if (!validState) {
+                        return@KeyboardActions
+                    }
+                    onValChange(totalBillState.value.trim())
+                    keyboardController?.hide()
+                })
+        }
+    }
+}
+
 @Composable
 fun MainView(content: @Composable () -> Unit) {
     ComposeTicCalcTheme {
@@ -75,32 +110,8 @@ fun MainView(content: @Composable () -> Unit) {
 @Preview
 @Composable
 fun MainContent() {
-    var totalBillState = remember {
-        mutableStateOf("")
-    }
-    val validState = remember(totalBillState.value) {
-        totalBillState.value.trim().isNotEmpty()
-    }
-    val keyboardController = LocalSoftwareKeyboardController.current
-    Surface(modifier = Modifier
-        .padding(2.dp)
-        .fillMaxWidth(),
-        shape = RoundedCornerShape(corner = CornerSize(8.dp)),
-        border = BorderStroke(width = 1.dp, color = Color.LightGray)
-    ) {
-        Column() {
-            InputField(valueState = totalBillState,
-                labelId = "Enter Bill",
-                enabled = true,
-                isSingleLine = true,
-                onAction = KeyboardActions {
-                    if (!validState) {
-                        return@KeyboardActions
-                    }
-                    keyboardController?.hide()
-
-                })
-        }
+    BillForm() { billAmount ->
+        Log.d("tag1", "MainContent: $billAmount")
     }
 }
 
