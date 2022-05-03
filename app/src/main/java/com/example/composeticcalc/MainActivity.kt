@@ -13,6 +13,9 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -25,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composeticcalc.components.InputField
 import com.example.composeticcalc.ui.theme.ComposeTicCalcTheme
+import com.example.composeticcalc.widgets.RoundIconButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +107,10 @@ fun BillForm(modifier: Modifier = Modifier,
                     Spacer(modifier = Modifier.width(120.dp))
                     Row(modifier = Modifier.padding(horizontal = 3.dp),
                         horizontalArrangement = Arrangement.End) {
-
+                        RoundIconButton(imageVector = Icons.Default.Remove,
+                                        onClick = { /*TODO*/ })
+                        RoundIconButton(imageVector = Icons.Default.Add,
+                            onClick = { /*TODO*/ })
                     }
                 }
             } else {
