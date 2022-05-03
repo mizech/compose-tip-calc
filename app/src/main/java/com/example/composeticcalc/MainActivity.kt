@@ -78,7 +78,11 @@ fun BillForm(modifier: Modifier = Modifier,
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         border = BorderStroke(width = 1.dp, color = Color.LightGray)
     ) {
-        Column() {
+        Column(
+            modifier = Modifier.padding(all = 6.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start
+        ) {
             InputField(valueState = totalBillState,
                 labelId = "Enter Bill",
                 enabled = true,
@@ -90,6 +94,23 @@ fun BillForm(modifier: Modifier = Modifier,
                     onValChange(totalBillState.value.trim())
                     keyboardController?.hide()
                 })
+            if (validState) {
+                Row(modifier = Modifier.padding(3.dp),
+                    horizontalArrangement = Arrangement.Start) {
+                    Text(text = "Split", modifier = Modifier.align(
+                        alignment = Alignment.CenterVertically
+                    ))
+                    Spacer(modifier = Modifier.width(120.dp))
+                    Row(modifier = Modifier.padding(horizontal = 3.dp),
+                        horizontalArrangement = Arrangement.End) {
+
+                    }
+                }
+            } else {
+                Box() {
+
+                }
+            }
         }
     }
 }
