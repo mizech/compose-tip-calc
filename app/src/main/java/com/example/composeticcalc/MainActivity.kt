@@ -109,6 +109,9 @@ fun BillForm(modifier: Modifier = Modifier,
                         horizontalArrangement = Arrangement.End) {
                         RoundIconButton(imageVector = Icons.Default.Remove,
                                         onClick = { /*TODO*/ })
+                        Text(text = "4", modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(start = 9.dp, end = 9.dp))
                         RoundIconButton(imageVector = Icons.Default.Add,
                             onClick = { /*TODO*/ })
                     }
