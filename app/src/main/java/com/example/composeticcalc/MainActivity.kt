@@ -116,6 +116,16 @@ fun BillForm(modifier: Modifier = Modifier,
                             onClick = { /*TODO*/ })
                     }
                 }
+
+                Row(modifier = Modifier
+                    .padding(horizontal = 3.dp, vertical = 12.dp)) {
+                    Text(text = "Tip", modifier = Modifier.align(
+                        alignment = Alignment.CenterVertically
+                    ))
+                    Spacer(modifier = Modifier.width(200.dp))
+                    Text(text = "$33.00",
+                     modifier = Modifier.align(alignment = Alignment.CenterVertically))
+                }
             } else {
                 Box() {
 
