@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Slider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -75,6 +76,9 @@ fun BillForm(modifier: Modifier = Modifier,
         totalBillState.value.trim().isNotEmpty()
     }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val sliderPositionState = remember {
+        mutableStateOf(0f)
+    }
 
     Surface(modifier = Modifier
         .padding(2.dp)
@@ -125,6 +129,16 @@ fun BillForm(modifier: Modifier = Modifier,
                     Spacer(modifier = Modifier.width(200.dp))
                     Text(text = "$33.00",
                      modifier = Modifier.align(alignment = Alignment.CenterVertically))
+                }
+                Column(verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "33%")
+                    Spacer(modifier = Modifier.height(14.dp))
+                    Slider(value = sliderPositionState.value,
+                        onValueChange = { newVal ->
+                            Log.d("tag1", "BillForm: $newVal")
+                            sliderPositionState.value = newVal
+                    })
                 }
             } else {
                 Box() {
