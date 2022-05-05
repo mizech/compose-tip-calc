@@ -82,6 +82,10 @@ fun BillForm(modifier: Modifier = Modifier,
     val sliderPositionState = remember {
         mutableStateOf(0f)
     }
+    val splitByState = remember {
+        mutableStateOf(1)
+    }
+    val range = IntRange(start = 1, endInclusive = 100)
 
     Surface(modifier = Modifier
         .padding(6.dp)
@@ -108,19 +112,29 @@ fun BillForm(modifier: Modifier = Modifier,
             if (validState) {
                 Row(modifier = Modifier.padding(3.dp),
                     horizontalArrangement = Arrangement.Start) {
-                    Text(text = "Split", modifier = Modifier.align(
+                    /*
+                    Text(text = splitByState.value.toString(), modifier = Modifier.align(
                         alignment = Alignment.CenterVertically
                     ))
+                     */
                     Spacer(modifier = Modifier.width(120.dp))
                     Row(modifier = Modifier.padding(horizontal = 3.dp),
                         horizontalArrangement = Arrangement.End) {
                         RoundIconButton(imageVector = Icons.Default.Remove,
-                                        onClick = { /*TODO*/ })
-                        Text(text = "4", modifier = Modifier
+                                        onClick = {
+                                            if (splitByState.value > 1) {
+                                                splitByState.value = splitByState.value - 1
+                                            }
+                                        })
+                        Text(text = splitByState.value.toString(), modifier = Modifier
                             .align(Alignment.CenterVertically)
                             .padding(start = 9.dp, end = 9.dp))
                         RoundIconButton(imageVector = Icons.Default.Add,
-                            onClick = { /*TODO*/ })
+                            onClick = {
+                                if (splitByState.value < range.last) {
+                                    splitByState.value = splitByState.value + 1
+                                }
+                            })
                     }
                 }
 
@@ -144,7 +158,9 @@ fun BillForm(modifier: Modifier = Modifier,
                     }, modifier = Modifier.padding(start = 16.dp, end = 16.dp),
                         steps = 5,
                         onValueChangeFinished = {
-
+                            if (splitByState.value < range.last) {
+                                splitByState.value = splitByState.value + 1
+                            }
                         })
                 }
             } else {
