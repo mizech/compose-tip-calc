@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -51,8 +52,10 @@ fun TopHeader(totalPerPerson: Double = 134.9339) {
     Surface(modifier = Modifier
         .fillMaxWidth()
         .height(150.dp)
-        .clip(shape = CircleShape.copy(all = CornerSize(12.dp)))) {
-       Column(modifier = Modifier.padding(12.dp),
+        .clip(shape = CircleShape.copy(all = CornerSize(12.dp))),
+        shape = RoundedCornerShape(20)) {
+       Column(modifier = Modifier.padding(6.dp)
+           .background(color = Color(0xFFDDBBFF)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
             val total = "%.2f".format(totalPerPerson)
@@ -81,7 +84,7 @@ fun BillForm(modifier: Modifier = Modifier,
     }
 
     Surface(modifier = Modifier
-        .padding(2.dp)
+        .padding(6.dp)
         .fillMaxWidth(),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         border = BorderStroke(width = 1.dp, color = Color.LightGray)
@@ -138,7 +141,11 @@ fun BillForm(modifier: Modifier = Modifier,
                         onValueChange = { newVal ->
                             Log.d("tag1", "BillForm: $newVal")
                             sliderPositionState.value = newVal
-                    })
+                    }, modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                        steps = 5,
+                        onValueChangeFinished = {
+
+                        })
                 }
             } else {
                 Box() {
