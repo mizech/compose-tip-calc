@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composeticcalc.components.InputField
 import com.example.composeticcalc.ui.theme.ComposeTicCalcTheme
+import com.example.composeticcalc.utils.calculateTotalTip
 import com.example.composeticcalc.widgets.RoundIconButton
 
 class MainActivity : ComponentActivity() {
@@ -84,6 +85,9 @@ fun BillForm(modifier: Modifier = Modifier,
     }
     val splitByState = remember {
         mutableStateOf(1)
+    }
+    val tipAmountState = remember {
+        mutableStateOf(0.0)
     }
     val tipPercentage = (sliderPositionState.value * 100).toInt()
     val range = IntRange(start = 1, endInclusive = 100)
@@ -154,8 +158,10 @@ fun BillForm(modifier: Modifier = Modifier,
                     Spacer(modifier = Modifier.height(14.dp))
                     Slider(value = sliderPositionState.value,
                         onValueChange = { newVal ->
-                            Log.d("tag1", "BillForm: $newVal")
                             sliderPositionState.value = newVal
+                            tipAmountState.value = calculateTotalTip(
+                                totalBill = totalBillState.value.toDouble(),
+                                tipPercentage = tipPercentage)
                     }, modifier = Modifier.padding(start = 16.dp, end = 16.dp),
                         steps = 5,
                         onValueChangeFinished = {
