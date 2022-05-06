@@ -85,6 +85,7 @@ fun BillForm(modifier: Modifier = Modifier,
     val splitByState = remember {
         mutableStateOf(1)
     }
+    val tipPercentage = (sliderPositionState.value * 100).toInt()
     val range = IntRange(start = 1, endInclusive = 100)
 
     Surface(modifier = Modifier
@@ -144,7 +145,7 @@ fun BillForm(modifier: Modifier = Modifier,
                         alignment = Alignment.CenterVertically
                     ))
                     Spacer(modifier = Modifier.width(200.dp))
-                    Text(text = "$33.00",
+                    Text(text = "$tipPercentage %",
                      modifier = Modifier.align(alignment = Alignment.CenterVertically))
                 }
                 Column(verticalArrangement = Arrangement.Center,
