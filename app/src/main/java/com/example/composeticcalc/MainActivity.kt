@@ -65,7 +65,7 @@ fun TopHeader(totalPerPerson: MutableState<Double>) {
             val total = "%.2f".format(totalPerPerson.value)
             Text(text = "Total Per Person",
                 style = MaterialTheme.typography.h3)
-            Text(text = "$${total}",
+            Text(text = "${total} $",
                 style = MaterialTheme.typography.h4,
                 fontWeight = FontWeight.ExtraBold)
        }
@@ -158,9 +158,9 @@ fun BillForm(
                     Text(text = "Tip Amount", modifier = Modifier.align(
                         alignment = Alignment.CenterVertically
                     ))
-                    Spacer(modifier = Modifier.width(200.dp))
+                    Spacer(modifier = Modifier.width(85.dp))
                     Text(text = "${tipAmountState.value} $",
-                     modifier = Modifier.align(alignment = Alignment.CenterVertically))
+                     modifier = Modifier.padding(bottom = 25.dp).align(alignment = Alignment.CenterVertically))
                 }
                 Column(verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally) {
